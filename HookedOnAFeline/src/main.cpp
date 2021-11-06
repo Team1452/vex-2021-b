@@ -54,7 +54,7 @@ void tgtCalibrate(){
     }else if(!trigger1){
 
     }else{
-      tgt2.spin(vex::reverse, 50, percent);
+      tgt2.spin(vex::reverse, 80, percent);
     }
     if(tgtSwitch.pressing()&&trigger2){
       tgt.spinFor(vex::reverse, 50, degrees);
@@ -63,7 +63,7 @@ void tgtCalibrate(){
     }else if(!trigger2){
 
     }else{
-      tgt.spin(vex::forward, 50, percent);
+      tgt.spin(vex::forward, 80, percent);
     }
   }
 }
@@ -101,8 +101,20 @@ void pre_auton(void){
 
 //Use Compass for drivetrain movement
 void autonomous(void){
-  vDrivetrain.move("north");
-  wait(2000, msec);
+  tgt.setVelocity(70, percent);//Adjust for arm speed
+  tgt2.setVelocity(70, percent);
+  tgtCalibrate();
+  vDrivetrain.move("sw");
+  /*wait(2000, msec);//find the best time
+  vDrivetrain.pause();*/
+  while(tgtRangeFinder.value() > 2){
+    task::sleep(10);
+  }
+  vDrivetrain.pause();
+
+  tgt2.spinFor(vex::reverse, 460, degrees);
+  vDrivetrain.move("ne");
+  wait(4, sec);
   vDrivetrain.pause();
 }
 
@@ -117,9 +129,6 @@ void autonomous(void){
 
 //DO NOT CHANGE (unless nessisary)
 void usercontrol(void){
-  tgt.setVelocity(50, percent);//Adjust for arm speed
-  tgt2.setVelocity(50, percent);
-  tgtCalibrate();
   turnTable.setVelocity(50, percent);
   intake.setVelocity(100, percent);
   int toggleVariable = 0;
@@ -247,7 +256,6 @@ void usercontrol(void){
 int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
-  vexcodeInit();
   //position.calibrate();
   //intakeCalibrate();
 

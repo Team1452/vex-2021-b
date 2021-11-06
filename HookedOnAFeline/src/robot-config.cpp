@@ -20,7 +20,8 @@ controller con = controller(primary);
 inertial Inertial6 = inertial(PORT6);
 limit intakeSwitch = limit(Brain.ThreeWirePort.A);
 limit tgt2Switch = limit(Brain.ThreeWirePort.E);
-limit tgtSwitch = limit(Brain.ThreeWirePort.D);
+limit tgtSwitch = limit(Brain.ThreeWirePort.B);
+sonar tgtRangeFinder = sonar(Brain.ThreeWirePort.C);
 //extern robotPosition robot;
 
 /**
@@ -29,8 +30,8 @@ limit tgtSwitch = limit(Brain.ThreeWirePort.D);
  * This should be called at the start of your int main function.
  */
 void vexcodeInit( void ) {
-  Inertial6.calibrate();
-  while (Inertial6.isCalibrating()){
+  //Inertial6.calibrate();
+  /*while (Inertial6.isCalibrating()){
     wait(100, msec);
-  }
+  }*/
 }

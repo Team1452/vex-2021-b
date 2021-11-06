@@ -17,6 +17,7 @@ extern motor intake;
 extern limit intakeSwitch;
 extern limit tgt2Switch;
 extern limit tgtSwitch;
+extern sonar tgtRangeFinder;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
